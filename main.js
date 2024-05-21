@@ -84,7 +84,8 @@ class Player {
         this.tasche = tasche;
     }
     playStatus(){
-        console.log(`Hello Player ${this.player} you have 4 PokeSlot\n in you backpack is =`, this.tasche);
+        const eigenTasche = Object.values(this.tasche);
+        console.log(`Hello Player ${this.player} you have 4 PokeSlot\nin you backpack is =\n`, eigenTasche.join('\n '));
     }
 }
 
