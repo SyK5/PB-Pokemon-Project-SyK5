@@ -10,6 +10,8 @@ privat mail : Alpay.sahin@outlook.de
 // Elements = water > fire > Plants > toxic  /  fire / toxic < ground > water / plants
 // Poke = Fukano, Seeper, Folipurba, Nidoran, Knogga
 
+const rs = require('readline-sync');
+
 class Pokemon {
     constructor(name, element, lvl, health, stamina, power, skills, status, pokeball){
         this.name = name;
@@ -81,7 +83,9 @@ class Player {
         this.poke4 = poke4;
         this.tasche = tasche;
     }
-
+    playStatus(){
+        console.log(`Hello Player ${this.player} you have 4 PokeSlot\n in you backpack is =`, this.tasche);
+    }
 }
 
 const deepCloning = (obj) => {
@@ -107,18 +111,70 @@ class Tasche {
 
 
 // Attack = attack, element, damage, stamina, status
+// Elements = water > fire > Plants > toxic  /  fire / toxic < ground > water / plants
+
 const Level1 = new Level(1, 0, 100);
 
 const blueTasche = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
 
-const player = new Player('SyK5', null, null, null, null, deepCloning(blueTasche));
+const namePlayer1 = rs.question('Hello Player\nPlease enter your name: ');
+const player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
+player1.playStatus();
 
 const fire = new Status('Burn', 3);
+const water = new Status('Wet', 1);
+const plants = new Status('Paralys', 1);
+const toxic = new Status('Toxic', 2);
+const ground = new Status('Grounded', 0);
+
+// Fire type
 
 const glut = new AttackSkill('Glut', deepCloning(fire), 12, 7);
-const flammenrad = new AttackSkill('Flammenrad', deepCloning(fire), 28, 13);
-const flammenblitz = new AttackSkill('Flammenblitz', deepCloning(fire), 55, 30);
+const flammenrad = new AttackSkill('Flammenrad', deepCloning(fire), 28, 17);
+const flammenwurf = new AttackSkill('Flammenwurf', deepCloning(fire), 35, 25);
+const flammenblitz = new AttackSkill('Flammenblitz', deepCloning(fire), 43, 30);
 
-const fukano = new Pokemon('Fukano', 'Fire', deepCloning(Level1), 72, 30, 50, [deepCloning(glut)], 'Normal', 'Pokeball');
+// Water type
 
-fukano.showStatus();
+const aquaknarre = new AttackSkill('Aquaknarre', deepCloning(water), 12, 7);
+const blubbstrahl = new AttackSkill('Blubbstrahl', deepCloning(water), 21, 12);
+const aquawelle = new AttackSkill('Aquawelle', deepCloning(water), 40, 26);
+const hydropumpe = new AttackSkill('Hydropumpe', deepCloning(water), 50, 40);
+
+// Plants type
+
+const rasierblatt = new AttackSkill('Rasierblatt', deepCloning(plants), 7, 3);
+const zauberblatt = new AttackSkill('Zauberblatt', deepCloning(plants), 18, 12);
+const gigasauger = new AttackSkill('Gigasauger', deepCloning(plants), 30, 20);
+const laubklinge = new AttackSkill('Laubklinge', deepCloning(plants), 40, 28);
+
+// Toxic type
+
+const giftstachel = new AttackSkill('Giftstachel', deepCloning(toxic), 10, 4);
+const giftspitzen = new AttackSkill('Giftspitzen', deepCloning(toxic), 20, 13);
+const toxin = new AttackSkill('Toxin', deepCloning(toxic), 32, 21);
+const gifthieb = new AttackSkill('Gifthieb', deepCloning(toxic), 45, 33);
+
+// Ground Type
+
+const lehmschelle = new AttackSkill('Lehmschelle', deepCloning(ground), 7, 3);
+const fruststampfer = new AttackSkill('Fruststampfer', deepCloning(ground), 15, 10);
+const knochenhatz = new AttackSkill('Knochenhatz', deepCloning(ground), 25, 15);
+const knochmerang = new AttackSkill('Knochmerang', deepCloning(ground), 30, 20)
+
+
+// name, element, lvl, health, stamina, power, skills, status, pokeball
+// Poke = Fukano, Seeper, Folipurba, Nidoran, Knogga
+
+const fukano = new Pokemon('Fukano', 'Fire', deepCloning(Level1), 60, 30, 50, [deepCloning(glut)], 'Normal', 'Pokeball');
+const seeper = new Pokemon('Knochmerang', 'Water', deepCloning(Level1), 65, 30, 38, [deepCloning(aquaknarre)], 'Normal', 'Pokeball');
+const folipurba = new Pokemon('Folipurba', 'Plant', deepCloning(Level1), 80, 33, 55, [deepCloning(rasierblatt)], 'Normal', 'Pokeball');
+const nidoran = new Pokemon('Nidoran', 'toxic', deepCloning(Level1), 62, 30, 42, [deepCloning(giftstachel)], 'Normal', 'Pokeball');
+const knogga = new Pokemon('Knogga', 'Ground', deepCloning(Level1), 70, 30, 30, [deepCloning(lehmschelle)], 'Normal', 'Pokeball');
+
+
+// fukano.showStatus();
+// seeper.showStatus();
+// folipurba.showStatus();
+// nidoran.showStatus();
+// knogga.showStatus();
