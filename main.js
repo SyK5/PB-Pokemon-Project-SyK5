@@ -40,7 +40,7 @@ class Pokemon {
                 skillsName.push(this.skills[i].attack)
             }
         }
-        let statuseffect = `Pokemon : ${this.name}\nLvl : ${this.lvl.lvl}\nHealth : ${this.health}\nStamina : ${this.stamina}\nPower : ${this.power}\nSkills: ${skillsName.join(' ')}\n${effect && effect !== 'Normal'? effect : 'Normal'}\nPokeBall : ${this.pokeball}`
+        let statuseffect = `\nPokemon : ${this.name}\nLvl : ${this.lvl.lvl}\nHealth : ${this.health}\nStamina : ${this.stamina}\nPower : ${this.power}\nSkills: ${skillsName.join(' ')}\n${effect && effect !== 'Normal'? effect : 'Normal'}\nPokeBall : ${this.pokeball}\n`
         console.log(statuseffect);
     }
 }
@@ -174,8 +174,8 @@ const nidoran = new Pokemon('Nidoran', 'toxic', deepCloning(Level1), 62, 30, 42,
 const knogga = new Pokemon('Knogga', 'Ground', deepCloning(Level1), 70, 30, 30, [deepCloning(lehmschelle)], 'Normal', 'Pokeball');
 
 
-// fukano.showStatus();
-// seeper.showStatus();
-// folipurba.showStatus();
-// nidoran.showStatus();
-// knogga.showStatus();
+fukano.showStatus();
+seeper.showStatus();
+folipurba.showStatus();
+nidoran.showStatus();
+knogga.showStatus();
