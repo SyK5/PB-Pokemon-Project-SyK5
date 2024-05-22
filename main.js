@@ -16,6 +16,17 @@ import chalk from 'chalk';
 import * as align from "@topcli/text-align";
 
 
+
+function wait() {
+    let count = 0;
+    return function() {
+        count += 1000;
+        return new Promise(resolve => setTimeout(resolve, count));
+    };
+}
+
+const warte = wait();
+
 class Pokemon {
     constructor(name, element, lvl, health, stamina, power, skills, status, pokeball){
         this.name = name;
@@ -47,7 +58,7 @@ class Pokemon {
 
         const pokiPic = await terminalImage.file(`${this.name}.png`, {width: '45%', height: '45%'});        
 
-        let statuseffect = pokiPic + `\n${chalk.black('Pokemon')}${chalk.bold(' : ')}${this.name}\n${chalk.yellow('Lvl')}${chalk.bold(' : ')}${chalk.yellow(this.lvl.lvl)}\n${chalk.red('Health')}${chalk.bold(' : ')}${chalk.red(this.health)}\n${chalk.blue('Stamina')}${chalk.bold(' : ')}${chalk.blue(this.stamina)}\n${chalk.yellow.bgRed('Power')}${chalk.bgRed.bold(' : ')}${chalk.yellow.bgRed(this.power)}\nSkills${chalk.bold(' : ')}${skillsName.join(' ')}\n${effect !== false? effect + '\n' : '' }PokeBall${chalk.bold(' : ')}${this.pokeball}\n`
+        let statuseffect = pokiPic + `\n${chalk.black('Pokemon')}${chalk.bold(' : ')}${this.name}\n${chalk.yellow('Lvl')}${chalk.bold(' : ')}${chalk.yellow(this.lvl.lvl)}\n${chalk.red('Health')}${chalk.bold(' : ')}${chalk.red(this.health)}\n${chalk.blue('Stamina')}${chalk.bold(' : ')}${chalk.blue(this.stamina)}\n${chalk.white.bgRed('Power')}${chalk.bgRed.bold(' : ')}${chalk.white.bgRed(this.power)}\nSkills${chalk.bold(' : ')}${skillsName.join(' ')}\n${effect !== false? effect + '\n' : '' }PokeBall${chalk.bold(' : ')}${this.pokeball}\n`
         console.log(statuseffect);
     }
 
@@ -103,9 +114,11 @@ class Player {
         this.poke4 = poke4;
         this.tasche = tasche;
     }
-    playStatus(){
+    playerStatus(){
         const eigenTasche = Object.values(this.tasche);
-        console.log(`Hello Player ${this.player} you have 4 PokeSlot\nin you backpack is =\n`, eigenTasche.join('\n '));
+        const geteilteTasche = eigenTasche.join('\n');
+        let bindBack = geteilteTasche.replace(new RegExp(',', 'g'), ' x');
+        console.log(`Hello Player : ${chalk.bold.black.bgWhite.underline(this.player)}\nin you backpack is =\n` + bindBack);
     }
 }
 
@@ -130,6 +143,37 @@ class Tasche {
     }
 }
 
+async function myPoki() {
+    console.log(chalk.bold.black.bgWhite('Available Pokemon:\n'));
+    await warte();
+
+    fukano.showStatus();
+
+    await warte();
+    
+    seeper.showStatus();
+
+    await warte();
+    
+    folipurba.showStatus();
+
+    await warte();
+    
+    nidoran.showStatus();
+
+    await warte();
+    
+    knogga.showStatus();
+
+    await warte();
+
+    knogga.Fight(seeper);
+}
+
+async function intro() {
+    console.log(chalk.bold.inverse.underline('WELCOME !!!\n') + chalk.bold('This game made by Alpay\n') + chalk.yellow.bold('Have fun and ENJOY!\n'));
+}
+
 
 // Attack = attack, element, damage, stamina, status
 // Elements = water > fire > Plants > toxic  /  fire / toxic < ground > water / plants
@@ -138,9 +182,7 @@ const Level1 = new Level(1, 0, 100);
 
 const blueTasche = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
 
-const namePlayer1 = rs.question('Hello Player\nPlease enter your name: ');
-const player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
-player1.playStatus();
+// Element damage
 
 const fire = new Status('Burn', 3);
 const water = new Status('Wet', 1);
@@ -194,10 +236,12 @@ const nidoran = new Pokemon('Nidoran', 'toxic', deepCloning(Level1), 62, 30, 42,
 const knogga = new Pokemon('Knogga', 'Ground', deepCloning(Level1), 70, 30, 30, [deepCloning(lehmschelle)], 'Normal', 'Pokeball');
 
 
-fukano.showStatus();
-seeper.showStatus();
-folipurba.showStatus();
-nidoran.showStatus();
-knogga.showStatus();
+intro();
 
-knogga.Fight(seeper);
+console.log('\n\n\n');
+const namePlayer1 = rs.question('Hey Player what is your Nickname ? \n')
+const player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
+
+player1.playerStatus();
+myPoki();
+
