@@ -10,7 +10,11 @@ privat mail : Alpay.sahin@outlook.de
 // Elements = water > fire > Plants > toxic  /  fire / toxic < ground > water / plants
 // Poke = Fukano, Seeper, Folipurba, Nidoran, Knogga
 
-const rs = require('readline-sync');
+import rs from 'readline-sync';
+import terminalImage from 'terminal-image';
+import chalk from 'chalk';
+import * as align from "@topcli/text-align";
+
 
 class Pokemon {
     constructor(name, element, lvl, health, stamina, power, skills, status, pokeball){
@@ -29,19 +33,35 @@ class Pokemon {
             return 'Sorry this skill is not avaible'
         }
     }
-    showStatus () {
+    async showStatus () {
         let effect = ``;
-        if (this.status !== null || this.status !== true || this.status === `Normal`) {
-            effect = `Status : ${this.status}`;
-        }
+        if (this.status === `Normal`) {
+            effect = false;
+        }else {effect = `Status : ${this.status}`}
         let skillsName = [this.skills[0].attack];
         for (let i = 1; i < this.skills.length; i++) {
             if (this.skills[i] !== null || this.skills[i] !== undefined) {
                 skillsName.push(this.skills[i].attack)
             }
         }
-        let statuseffect = `\nPokemon : ${this.name}\nLvl : ${this.lvl.lvl}\nHealth : ${this.health}\nStamina : ${this.stamina}\nPower : ${this.power}\nSkills: ${skillsName.join(' ')}\n${effect && effect !== 'Normal'? effect : 'Normal'}\nPokeBall : ${this.pokeball}\n`
+
+        const pokiPic = await terminalImage.file(`${this.name}.png`, {width: '45%', height: '45%'});        
+
+        let statuseffect = pokiPic + `\n${chalk.black('Pokemon')}${chalk.bold(' : ')}${this.name}\n${chalk.yellow('Lvl')}${chalk.bold(' : ')}${chalk.yellow(this.lvl.lvl)}\n${chalk.red('Health')}${chalk.bold(' : ')}${chalk.red(this.health)}\n${chalk.blue('Stamina')}${chalk.bold(' : ')}${chalk.blue(this.stamina)}\n${chalk.yellow.bgRed('Power')}${chalk.bgRed.bold(' : ')}${chalk.yellow.bgRed(this.power)}\nSkills${chalk.bold(' : ')}${skillsName.join(' ')}\n${effect !== false? effect + '\n' : '' }PokeBall${chalk.bold(' : ')}${this.pokeball}\n`
         console.log(statuseffect);
+    }
+
+    async Fight (other) {
+        const pokiPic = await terminalImage.file(`${this.name}.png`, {width: '45%', height: '45%'});
+        const enemyPoki = await terminalImage.file(`${other.name}.png`, {width: '45%', height: '45%'});
+        const terminalWidth = process.stdout.columns;
+
+        const rightAlignedPokiPic = enemyPoki.split('\n').map(line => {
+            const padding = ' '.repeat(Math.max(terminalWidth - 50, 0));
+            return padding + line;
+        }).join('\n');
+
+        console.log(rightAlignedPokiPic + '\n\n\n\n\n' + pokiPic);
     }
 }
 
@@ -168,7 +188,7 @@ const knochmerang = new AttackSkill('Knochmerang', deepCloning(ground), 30, 20)
 // Poke = Fukano, Seeper, Folipurba, Nidoran, Knogga
 
 const fukano = new Pokemon('Fukano', 'Fire', deepCloning(Level1), 60, 30, 50, [deepCloning(glut)], 'Normal', 'Pokeball');
-const seeper = new Pokemon('Knochmerang', 'Water', deepCloning(Level1), 65, 30, 38, [deepCloning(aquaknarre)], 'Normal', 'Pokeball');
+const seeper = new Pokemon('Seeper', 'Water', deepCloning(Level1), 65, 30, 38, [deepCloning(aquaknarre)], 'Normal', 'Pokeball');
 const folipurba = new Pokemon('Folipurba', 'Plant', deepCloning(Level1), 80, 33, 55, [deepCloning(rasierblatt)], 'Normal', 'Pokeball');
 const nidoran = new Pokemon('Nidoran', 'toxic', deepCloning(Level1), 62, 30, 42, [deepCloning(giftstachel)], 'Normal', 'Pokeball');
 const knogga = new Pokemon('Knogga', 'Ground', deepCloning(Level1), 70, 30, 30, [deepCloning(lehmschelle)], 'Normal', 'Pokeball');
@@ -179,3 +199,5 @@ seeper.showStatus();
 folipurba.showStatus();
 nidoran.showStatus();
 knogga.showStatus();
+
+knogga.Fight(seeper);
