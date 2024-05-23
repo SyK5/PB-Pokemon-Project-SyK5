@@ -15,18 +15,62 @@ import terminalImage from 'terminal-image';
 import chalk from 'chalk';
 import * as align from "@topcli/text-align";
 
-
-
-function wait() {
+   //Function  
+   function wait(defaultDelay) {
     let count = 0;
-    return function() {
-        count += 1000;
-        return new Promise(resolve => setTimeout(resolve, count));
+    return function(delay) {
+        let currentDelay = (typeof delay === 'number') ? delay : defaultDelay;
+        count += currentDelay;
+        return new Promise(resolve => setTimeout(resolve, currentDelay));
     };
 }
+const deepCloning = (obj) => {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
+    }
+    const copy = Array.isArray(obj) ? [] : {};
+    for (let key in obj) {
+            copy[key] = deepCloning(obj[key]);
+    }
+    return copy;
+}
+async function myPoki() {
+    console.log(chalk.bold.black.bgWhite('Available Pokemon:\n'));
+    await warte();
 
-const warte = wait();
+    fukano.showStatus();
 
+    await warte();
+    
+    seeper.showStatus();
+
+    await warte();
+    
+    folipurba.showStatus();
+
+    await warte();
+    
+    nidoran.showStatus();
+
+    await warte();
+    
+    knogga.showStatus();
+
+    await warte();
+
+    knogga.Fight(seeper);
+}
+async function intro() {
+    console.log(chalk.bold.inverse.underline('WELCOME !!!\n') + chalk.bold('This game made by Alpay\n') + chalk.yellow.bold('Have fun and ENJOY!\n'));
+
+    await warte();
+    await warte();
+    await warte(500)
+    
+    console.clear();
+}
+
+    // Classes  
 class Pokemon {
     constructor(name, element, lvl, health, stamina, power, skills, status, pokeball){
         this.name = name;
@@ -75,7 +119,6 @@ class Pokemon {
         console.log(rightAlignedPokiPic + '\n\n\n\n\n' + pokiPic);
     }
 }
-
 class AttackSkill {
     constructor(attack, element, damage, stamina){
         this.attack = attack;
@@ -84,14 +127,12 @@ class AttackSkill {
         this.element = element;
     }
 }
-
 class Status {
     constructor(status, rounds){
         this.status = status;
         this.rounds = rounds;
     }
 }
-
 class Level {
     constructor(lvl, xp, maxXp){
         this.lvl = lvl;
@@ -104,7 +145,6 @@ class Level {
 
     }
 }
-
 class Player {
     constructor(player, poke1, poke2, poke3, poke4, tasche){
         this.player = player;
@@ -118,21 +158,61 @@ class Player {
         const eigenTasche = Object.values(this.tasche);
         const geteilteTasche = eigenTasche.join('\n');
         let bindBack = geteilteTasche.replace(new RegExp(',', 'g'), ' x');
-        console.log(`Hello Player : ${chalk.bold.black.bgWhite.underline(this.player)}\nin you backpack is =\n` + bindBack);
+        console.log(`Player : ${chalk.bold.black.bgWhite.underline(this.player)}\nin you backpack is =\n` + bindBack);
+        if (this.poke1 === null) {
+            console.log(`you have at the moment ${chalk.bold.underline('NO')} Pokemon with you...`);
+        }else if (this.poke1 !== null && this.poke2 === null) {
+            console.log(`you have at the moment ${chalk.bold.underline('1')} Pokemon with you`).then(async() => {
+                console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                this.poke1.showStatus();
+            });
+        }else if (this.poke2 !== null && this.poke3 === null) {
+            console.log(`you have at the moment ${chalk.bold.underline('2')} Pokemon with you`).then(async() => {
+            console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+            this.poke1.showStatus();
+            await warte();
+            console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+            this.poke2.showStatus();
+            await warte();
+            });
+            
+        }else if (this.poke3 !== null && this.poke4 === null) {
+            console.log(`you have at the moment ${chalk.bold.underline('3')} Pokemon with you`).then(async() => {
+                console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                this.poke1.showStatus();
+                await warte();
+                console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+                this.poke2.showStatus();
+                await warte();
+                console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
+                this.poke3.showStatus();
+                await warte();
+            });
+            
+        }else if (this.poke4 !== null) {
+            console.log(`you have at the moment ${chalk.bold.underline('4')} Pokemon with you`).then(async() => {
+                console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                this.poke1.showStatus();
+                await warte();
+                console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+                this.poke2.showStatus();
+                await warte();
+                console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
+                this.poke3.showStatus();
+                await warte();
+                console.log(chalk.bold.italic('slot 4') + chalk.bold(' :  \n'));
+                this.poke4.showStatus();
+                await warte();
+            });
+            
+        }else{
+            console.log(chalk.bold.underline('ERROR!!! something wrong with pokemon slot!'));
+        }
+    }
+    welcomePLayer(){
+
     }
 }
-
-const deepCloning = (obj) => {
-    if (obj === null || typeof obj !== 'object') {
-        return obj;
-    }
-    const copy = Array.isArray(obj) ? [] : {};
-    for (let key in obj) {
-            copy[key] = deepCloning(obj[key]);
-    }
-    return copy;
-};
-
 class Tasche {
     constructor(slot1, slot2, slot3, slot4, slot5){
         this.slot1 = slot1;
@@ -143,105 +223,119 @@ class Tasche {
     }
 }
 
-async function myPoki() {
-    console.log(chalk.bold.black.bgWhite('Available Pokemon:\n'));
-    await warte();
+   // Element damage   
+    const fire = new Status('Burn', 3);
+    const water = new Status('Wet', 1);
+    const plants = new Status('Paralys', 1);
+    const toxic = new Status('Toxic', 2);
+    const ground = new Status('Grounded', 0);
 
-    fukano.showStatus();
+   // Skills  
+   let empty;
 
-    await warte();
+   // Fire type 
+    const glut = new AttackSkill('Glut', deepCloning(fire), 12, 7);
+    const flammenrad = new AttackSkill('Flammenrad', deepCloning(fire), 28, 17);
+    const flammenwurf = new AttackSkill('Flammenwurf', deepCloning(fire), 35, 25);
+    const flammenblitz = new AttackSkill('Flammenblitz', deepCloning(fire), 43, 30);
+
+   // Water type    
+    const aquaknarre = new AttackSkill('Aquaknarre', deepCloning(water), 12, 7);
+    const blubbstrahl = new AttackSkill('Blubbstrahl', deepCloning(water), 21, 12);
+    const aquawelle = new AttackSkill('Aquawelle', deepCloning(water), 40, 26);
+    const hydropumpe = new AttackSkill('Hydropumpe', deepCloning(water), 50, 40);
+
+   // Plants type   
+    const rasierblatt = new AttackSkill('Rasierblatt', deepCloning(plants), 7, 3);
+    const zauberblatt = new AttackSkill('Zauberblatt', deepCloning(plants), 18, 12);
+    const gigasauger = new AttackSkill('Gigasauger', deepCloning(plants), 30, 20);
+    const laubklinge = new AttackSkill('Laubklinge', deepCloning(plants), 40, 28);
+
+   // Toxic type    
+    const giftstachel = new AttackSkill('Giftstachel', deepCloning(toxic), 10, 4);
+    const giftspitzen = new AttackSkill('Giftspitzen', deepCloning(toxic), 20, 13);
+    const toxin = new AttackSkill('Toxin', deepCloning(toxic), 32, 21);
+    const gifthieb = new AttackSkill('Gifthieb', deepCloning(toxic), 45, 33);
+
+   // Ground Type   
+    const lehmschelle = new AttackSkill('Lehmschelle', deepCloning(ground), 7, 3);
+    const fruststampfer = new AttackSkill('Fruststampfer', deepCloning(ground), 15, 10);
+    const knochenhatz = new AttackSkill('Knochenhatz', deepCloning(ground), 25, 15);
+    const knochmerang = new AttackSkill('Knochmerang', deepCloning(ground), 30, 20)
+
+   // Variable 
+        const Level1 = new Level(1, 0, 100);
+        const blueTasche = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
+        let warte = wait(1000);
+        let player1;
+       
+
+   // Pokemon  
+    const fukano = new Pokemon('Fukano', 'Fire', Level1, 60, 30, 50, [glut], 'Normal', 'Pokeball');
+    const seeper = new Pokemon('Seeper', 'Water', Level1, 65, 30, 38, [aquaknarre], 'Normal', 'Pokeball');
+    const folipurba = new Pokemon('Folipurba', 'Plant', Level1, 80, 33, 55, [rasierblatt], 'Normal', 'Pokeball');
+    const nidoran = new Pokemon('Nidoran', 'toxic', Level1, 62, 30, 42, [giftstachel], 'Normal', 'Pokeball');
+    const knogga = new Pokemon('Knogga', 'Ground', Level1, 70, 30, 30, [lehmschelle], 'Normal', 'Pokeball');
     
-    seeper.showStatus();
-
-    await warte();
     
-    folipurba.showStatus();
+    // Variable 2
 
-    await warte();
+    let pokeSlot1p1 = new Pokemon(knogga);
+    let pokeSlot2p1 = new Pokemon(seeper);
+    let pokeSlot3p1 = new Pokemon(nidoran);
+    let pokeSlot4p1 = new Pokemon(folipurba);
     
-    nidoran.showStatus();
+    let pokeSlot1p2 = new Pokemon(fukano);
+    let pokeSlot2p2 = new Pokemon(nidoran);
+    let pokeSlot3p2 = new Pokemon(knogga);
+    let pokeSlot4p2 = new Pokemon(folipurba);
 
-    await warte();
-    
-    knogga.showStatus();
+    let pokeSlot1p3 = new Pokemon(nidoran);
+    let pokeSlot2p3 = new Pokemon(knogga);
+    let pokeSlot3p3 = new Pokemon(seeper);
+    let pokeSlot4p3 = new Pokemon(fukano);
 
-    await warte();
+    let pokeSlot1p4 = new Pokemon(folipurba);
+    let pokeSlot2p4 = new Pokemon(fukano);
+    let pokeSlot3p4 = new Pokemon(seeper);
+    let pokeSlot4p4 = new Pokemon(knogga);
 
-    knogga.Fight(seeper);
-}
-
-async function intro() {
-    console.log(chalk.bold.inverse.underline('WELCOME !!!\n') + chalk.bold('This game made by Alpay\n') + chalk.yellow.bold('Have fun and ENJOY!\n'));
-}
-
-
-// Attack = attack, element, damage, stamina, status
-// Elements = water > fire > Plants > toxic  /  fire / toxic < ground > water / plants
-
-const Level1 = new Level(1, 0, 100);
-
-const blueTasche = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
-
-// Element damage
-
-const fire = new Status('Burn', 3);
-const water = new Status('Wet', 1);
-const plants = new Status('Paralys', 1);
-const toxic = new Status('Toxic', 2);
-const ground = new Status('Grounded', 0);
-
-// Fire type
-
-const glut = new AttackSkill('Glut', deepCloning(fire), 12, 7);
-const flammenrad = new AttackSkill('Flammenrad', deepCloning(fire), 28, 17);
-const flammenwurf = new AttackSkill('Flammenwurf', deepCloning(fire), 35, 25);
-const flammenblitz = new AttackSkill('Flammenblitz', deepCloning(fire), 43, 30);
-
-// Water type
-
-const aquaknarre = new AttackSkill('Aquaknarre', deepCloning(water), 12, 7);
-const blubbstrahl = new AttackSkill('Blubbstrahl', deepCloning(water), 21, 12);
-const aquawelle = new AttackSkill('Aquawelle', deepCloning(water), 40, 26);
-const hydropumpe = new AttackSkill('Hydropumpe', deepCloning(water), 50, 40);
-
-// Plants type
-
-const rasierblatt = new AttackSkill('Rasierblatt', deepCloning(plants), 7, 3);
-const zauberblatt = new AttackSkill('Zauberblatt', deepCloning(plants), 18, 12);
-const gigasauger = new AttackSkill('Gigasauger', deepCloning(plants), 30, 20);
-const laubklinge = new AttackSkill('Laubklinge', deepCloning(plants), 40, 28);
-
-// Toxic type
-
-const giftstachel = new AttackSkill('Giftstachel', deepCloning(toxic), 10, 4);
-const giftspitzen = new AttackSkill('Giftspitzen', deepCloning(toxic), 20, 13);
-const toxin = new AttackSkill('Toxin', deepCloning(toxic), 32, 21);
-const gifthieb = new AttackSkill('Gifthieb', deepCloning(toxic), 45, 33);
-
-// Ground Type
-
-const lehmschelle = new AttackSkill('Lehmschelle', deepCloning(ground), 7, 3);
-const fruststampfer = new AttackSkill('Fruststampfer', deepCloning(ground), 15, 10);
-const knochenhatz = new AttackSkill('Knochenhatz', deepCloning(ground), 25, 15);
-const knochmerang = new AttackSkill('Knochmerang', deepCloning(ground), 30, 20)
+    let TascheP1 = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
+    let TascheP2 = new Tasche(blueTasche);
+    let TascheP3 = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
+    let TascheP4 = new Tasche(blueTasche);
 
 
-// name, element, lvl, health, stamina, power, skills, status, pokeball
-// Poke = Fukano, Seeper, Folipurba, Nidoran, Knogga
+    const player2 = new Player('test1', knogga, null, null, null, TascheP1);
+    const player3 = new Player('test2', fukano, nidoran, null, null, TascheP2);
+    const player4 = new Player('test3', nidoran, knogga, seeper, null, TascheP3);
+    const player5 = new Player('test4', folipurba, fukano, seeper, knogga, TascheP4);
 
-const fukano = new Pokemon('Fukano', 'Fire', deepCloning(Level1), 60, 30, 50, [deepCloning(glut)], 'Normal', 'Pokeball');
-const seeper = new Pokemon('Seeper', 'Water', deepCloning(Level1), 65, 30, 38, [deepCloning(aquaknarre)], 'Normal', 'Pokeball');
-const folipurba = new Pokemon('Folipurba', 'Plant', deepCloning(Level1), 80, 33, 55, [deepCloning(rasierblatt)], 'Normal', 'Pokeball');
-const nidoran = new Pokemon('Nidoran', 'toxic', deepCloning(Level1), 62, 30, 42, [deepCloning(giftstachel)], 'Normal', 'Pokeball');
-const knogga = new Pokemon('Knogga', 'Ground', deepCloning(Level1), 70, 30, 30, [deepCloning(lehmschelle)], 'Normal', 'Pokeball');
-
-
-intro();
-
-console.log('\n\n\n');
-const namePlayer1 = rs.question('Hey Player what is your Nickname ? \n')
-const player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
-
-player1.playerStatus();
-myPoki();
-
+    intro()
+    .then(async() => {
+        //await warte();
+        //await warte();
+        await warte(750);
+        var namePlayer1 = rs.question('Hey Player, what is your Nickname?\n');
+        await warte(750);
+        console.clear();
+        await warte(500);
+        player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
+        console.log(chalk.bold.inverse(`Welcome Player. Lets see you stats ${player1.player}`));
+        await warte();
+        await warte();
+        await warte();
+        console.clear();
+    }).then(async() => {
+        player1.playerStatus();
+        await warte(5000);
+        console.clear();
+        player2.playerStatus();
+        await warte(5000);
+        console.clear();
+        player3.playerStatus();
+        await warte(5000);
+        console.clear();
+        player4.playerStatus();
+        await warte(5000);
+    });
