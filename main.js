@@ -335,11 +335,12 @@ class Tasche {
         await warte();
         await warte();
         myPoki().then(async() => {
+            console.log('Take you time to look at the Avaible Pokemon :)');
             const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
             console.clear();
            }).then(async() => {
             console.log('Have you now a idea who you want ?');
-            choose = rs.question('so wich want you choose ? bewtwenn => | ' + chalk.bold('(1)') + ' => for ' + chalk.bold.redBright('Fukano') + chalk.bold('(2)') + ' => ' + chalk.bold.blue('Seeper') +' | ' + chalk.bold('(3)') + ' => ' + chalk.bold.green('Folipurba') + ' | ' + chalk.bold('(4)') + ' => ' + chalk.bold.magenta('Nidoran') + ' | ' + chalk.bold('(5)') + ' => ' + chalk.bold.yellow('Knogga'))
+            choose = rs.question('so wich want you choose ? bewtwenn => | ' + chalk.bold('(1)') + ' => ' + chalk.bold.redBright('Fukano') + ' | ' + chalk.bold('(2)') + ' => ' + chalk.bold.blue('Seeper') +' | ' + chalk.bold('(3)') + ' => ' + chalk.bold.green('Folipurba') + ' | ' + chalk.bold('(4)') + ' => ' + chalk.bold.magenta('Nidoran') + ' | ' + chalk.bold('(5)') + ' => ' + chalk.bold.yellow('Knogga' + '\nWrite the number of that pokemon you want to have :)\n'))
     
            });
        });
