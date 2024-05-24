@@ -57,8 +57,6 @@ async function myPoki() {
     knogga.showStatus();
 
     await warte();
-
-    knogga.Fight(seeper);
 }
 async function intro() {
     console.log(chalk.bold.inverse.underline('WELCOME !!!\n') + chalk.bold('This game made by Alpay\n') + chalk.yellow.bold('Have fun and ENJOY!\n'));
@@ -154,59 +152,83 @@ class Player {
         this.poke4 = poke4;
         this.tasche = tasche;
     }
-    playerStatus(){
+    async playerStatus(){
         const eigenTasche = Object.values(this.tasche);
         const geteilteTasche = eigenTasche.join('\n');
         let bindBack = geteilteTasche.replace(new RegExp(',', 'g'), ' x');
         console.log(`Player : ${chalk.bold.black.bgWhite.underline(this.player)}\nin you backpack is =\n` + bindBack);
         if (this.poke1 === null) {
+            await warte();
             console.log(`you have at the moment ${chalk.bold.underline('NO')} Pokemon with you...`);
-        }else if (this.poke1 !== null && this.poke2 === null) {
-            console.log(`you have at the moment ${chalk.bold.underline('1')} Pokemon with you`).then(async() => {
-                console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
-                this.poke1.showStatus();
-            });
-        }else if (this.poke2 !== null && this.poke3 === null) {
-            console.log(`you have at the moment ${chalk.bold.underline('2')} Pokemon with you`).then(async() => {
-            console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
-            this.poke1.showStatus();
+            const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+            console.clear(); 
             await warte();
-            console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
-            this.poke2.showStatus();
-            await warte();
-            });
-            
-        }else if (this.poke3 !== null && this.poke4 === null) {
-            console.log(`you have at the moment ${chalk.bold.underline('3')} Pokemon with you`).then(async() => {
+        } else if (this.poke1 !== null && this.poke2 === null && this.poke3 === null && this.poke4 === null) {
+                await warte();
+                console.log(`you have at the moment ${chalk.bold.underline('1')} Pokemon with you`);
                 console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                await warte();
                 this.poke1.showStatus();
-                await warte();
-                console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
-                this.poke2.showStatus();
-                await warte();
-                console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
-                this.poke3.showStatus();
-                await warte();
-            });
-            
-        }else if (this.poke4 !== null) {
-            console.log(`you have at the moment ${chalk.bold.underline('4')} Pokemon with you`).then(async() => {
-                console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
-                this.poke1.showStatus();
-                await warte();
-                console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
-                this.poke2.showStatus();
-                await warte();
-                console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
-                this.poke3.showStatus();
-                await warte();
-                console.log(chalk.bold.italic('slot 4') + chalk.bold(' :  \n'));
-                this.poke4.showStatus();
-                await warte();
-            });
-            
+                const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+                console.clear();
+                await warte(); 
+        }else if (this.poke1 !== null && this.poke2 !== null && this.poke3 === null && this.poke4 === null) {
+                    await warte();
+                    console.log(`you have at the moment ${chalk.bold.underline('2')} Pokemon with you`);
+                    console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                    this.poke1.showStatus();
+                    await warte();
+                    console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+                    this.poke2.showStatus();
+                    const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+                    console.clear();   
+                    await warte();
+        }else if (this.poke1 !== null && this.poke2 !== null && this.poke3 !== null && this.poke4 === null) {
+                        await warte();
+                        console.log(`you have at the moment ${chalk.bold.underline('3')} Pokemon with you`);
+                        console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                        await warte();
+                        this.poke1.showStatus();
+                        await warte();
+                        console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+                        await warte();
+                        this.poke2.showStatus();
+                        await warte();
+                        console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
+                        await warte();
+                        this.poke3.showStatus();
+                        const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+                        console.clear();     
+                        await warte();
+        }else if (this.poke1 !== null && this.poke2 !== null && this.poke3 !== null && this.poke4 !== null) {
+                            await warte();
+                            console.log(`you have at the moment ${chalk.bold.underline('4')} Pokemon with you`);
+                            console.log(chalk.bold.italic('slot 1') + chalk.bold(' :  \n'));
+                            await warte();
+                            this.poke1.showStatus();
+                            await warte();
+                            console.log(chalk.bold.italic('slot 2') + chalk.bold(' :  \n'));
+                            await warte();
+                            this.poke2.showStatus();
+                            await warte();
+                            console.log(chalk.bold.italic('slot 3') + chalk.bold(' :  \n'));
+                            await warte();
+                            this.poke3.showStatus();
+                            await warte();
+                            console.log(chalk.bold.italic('slot 4') + chalk.bold(' :  \n'));
+                            await warte();
+                            this.poke4.showStatus();
+                            const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+                            console.clear();  
+                            await warte();
+
         }else{
+            await warte();
+            await warte();
+            console.clear();
             console.log(chalk.bold.underline('ERROR!!! something wrong with pokemon slot!'));
+            await warte();
+            await warte();
         }
     }
     welcomePLayer(){
@@ -268,6 +290,7 @@ class Tasche {
         const blueTasche = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
         let warte = wait(1000);
         let player1;
+        let choose;
        
 
    // Pokemon  
@@ -280,62 +303,37 @@ class Tasche {
     
     // Variable 2
 
-    let pokeSlot1p1 = new Pokemon(knogga);
-    let pokeSlot2p1 = new Pokemon(seeper);
-    let pokeSlot3p1 = new Pokemon(nidoran);
-    let pokeSlot4p1 = new Pokemon(folipurba);
-    
-    let pokeSlot1p2 = new Pokemon(fukano);
-    let pokeSlot2p2 = new Pokemon(nidoran);
-    let pokeSlot3p2 = new Pokemon(knogga);
-    let pokeSlot4p2 = new Pokemon(folipurba);
 
-    let pokeSlot1p3 = new Pokemon(nidoran);
-    let pokeSlot2p3 = new Pokemon(knogga);
-    let pokeSlot3p3 = new Pokemon(seeper);
-    let pokeSlot4p3 = new Pokemon(fukano);
-
-    let pokeSlot1p4 = new Pokemon(folipurba);
-    let pokeSlot2p4 = new Pokemon(fukano);
-    let pokeSlot3p4 = new Pokemon(seeper);
-    let pokeSlot4p4 = new Pokemon(knogga);
-
-    let TascheP1 = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
-    let TascheP2 = new Tasche(blueTasche);
-    let TascheP3 = new Tasche(['Pokeball', 2], ['Hyperball', 2], ['Masterball', 2], ['Healspray', 5], ['antitoxic', 1]);
-    let TascheP4 = new Tasche(blueTasche);
-
-
-    const player2 = new Player('test1', knogga, null, null, null, TascheP1);
-    const player3 = new Player('test2', fukano, nidoran, null, null, TascheP2);
-    const player4 = new Player('test3', nidoran, knogga, seeper, null, TascheP3);
-    const player5 = new Player('test4', folipurba, fukano, seeper, knogga, TascheP4);
-
-    intro()
+    await intro()
     .then(async() => {
         //await warte();
         //await warte();
         await warte(750);
-        var namePlayer1 = rs.question('Hey Player, what is your Nickname?\n');
+        const namePlayer1 = rs.question('Hey Player, what is your Nickname?\n');
         await warte(750);
         console.clear();
         await warte(500);
         player1 = new Player(namePlayer1, null, null, null, null, deepCloning(blueTasche));
         console.log(chalk.bold.inverse(`Welcome Player. Lets see you stats ${player1.player}`));
-        await warte();
-        await warte();
-        await warte();
         console.clear();
-    }).then(async() => {
-        player1.playerStatus();
-        await warte(5000);
-        console.clear();
-        player2.playerStatus();
-        await warte(5000);
-        console.clear();
-        player3.playerStatus();
-        await warte(5000);
-        console.clear();
-        player4.playerStatus();
-        await warte(5000);
+
     });
+
+    await player1.playerStatus().then(async() => {
+        console.log(chalk.bold('Leets see how we get you a Pokemon\n we have following Pokemon avaible and i give you the permission to take one :3\n'));
+        await warte();
+        await warte();
+        await warte();
+        myPoki().then(async() => {
+            const next = rs.question(chalk.bold.inverse('\nPress enter to Continue'));
+            console.clear();
+           }).then(async() => {
+            console.log('Have you now a idea who you want ?');
+            choose = rs.question('so wich want you choose ? bewtwenn =>' + chalk.bold('(1)') + ' => for Fukano ' + chalk.bold('(2)') + ' => Seeper | ' + chalk.bold('(3)') + ' => Folipurba | ' + chalk.bold('(1)') + ' => Nidoran | ' + chalk.bold('(5)') + ' => Knogga')
+    
+           });
+       });
+
+           
+     
+    
