@@ -41,21 +41,31 @@ async function myPoki() {
     fukano.showStatus();
 
     await warte();
+    console.log('\n\n\n');
+    await warte();
     
     seeper.showStatus();
 
+    await warte();
+    console.log('\n\n\n');
     await warte();
     
     folipurba.showStatus();
 
     await warte();
+    console.log('\n\n\n');
+    await warte();
     
     nidoran.showStatus();
 
     await warte();
+    console.log('\n\n\n');
+    await warte();
     
     knogga.showStatus();
 
+    await warte();
+    console.log('\n\n\n');
     await warte();
 }
 async function intro() {
@@ -100,7 +110,7 @@ class Pokemon {
 
         const pokiPic = await terminalImage.file(`${this.name}.png`, {width: '45%', height: '45%'});        
 
-        let statuseffect = pokiPic + `\n${chalk.black('Pokemon')}${chalk.bold(' : ')}${this.name}\n${chalk.yellow('Lvl')}${chalk.bold(' : ')}${chalk.yellow(this.lvl.lvl)}\n${chalk.red('Health')}${chalk.bold(' : ')}${chalk.red(this.health)}\n${chalk.blue('Stamina')}${chalk.bold(' : ')}${chalk.blue(this.stamina)}\n${chalk.white.bgRed('Power')}${chalk.bgRed.bold(' : ')}${chalk.white.bgRed(this.power)}\nSkills${chalk.bold(' : ')}${skillsName.join(' ')}\n${effect !== false? effect + '\n' : '' }PokeBall${chalk.bold(' : ')}${this.pokeball}\n`
+        let statuseffect = pokiPic + `\n${chalk.whiteBright.bgBlackBright('Pokemon')}${chalk.bold.whiteBright.bgBlackBright(' : ')}${chalk.whiteBright.bgBlackBright(this.name)}\n${chalk.yellow('Lvl')}${chalk.bold(' : ')}${chalk.yellow(this.lvl.lvl)}\n${chalk.red('Health')}${chalk.bold(' : ')}${chalk.red(this.health)}\n${chalk.blue('Stamina')}${chalk.bold(' : ')}${chalk.blue(this.stamina)}\n${chalk.white.bgRed('Power')}${chalk.bgRed.bold(' : ')}${chalk.white.bgRed(this.power)}\nSkills${chalk.bold(' : ')}${skillsName.join(' ')}\n${effect !== false? effect + '\n' : '' }PokeBall${chalk.bold(' : ')}${this.pokeball}\n`
         console.log(statuseffect);
     }
 
@@ -329,7 +339,7 @@ class Tasche {
             console.clear();
            }).then(async() => {
             console.log('Have you now a idea who you want ?');
-            choose = rs.question('so wich want you choose ? bewtwenn =>' + chalk.bold('(1)') + ' => for Fukano ' + chalk.bold('(2)') + ' => Seeper | ' + chalk.bold('(3)') + ' => Folipurba | ' + chalk.bold('(1)') + ' => Nidoran | ' + chalk.bold('(5)') + ' => Knogga')
+            choose = rs.question('so wich want you choose ? bewtwenn => | ' + chalk.bold('(1)') + ' => for ' + chalk.bold.redBright('Fukano') + chalk.bold('(2)') + ' => ' + chalk.bold.blue('Seeper') +' | ' + chalk.bold('(3)') + ' => ' + chalk.bold.green('Folipurba') + ' | ' + chalk.bold('(4)') + ' => ' + chalk.bold.magenta('Nidoran') + ' | ' + chalk.bold('(5)') + ' => ' + chalk.bold.yellow('Knogga'))
     
            });
        });
